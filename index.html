@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>株式会社米山製作所｜労基署調査後の対応タスク・制度改定ポータル</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .tab-active {
+      border-bottom: 2px solid #2563eb;
+      color: #1d4ed8;
+      font-weight: 600;
+      background-color: #eff6ff;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      .print-break {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Notification Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden transform transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 text-sm">
+    <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span id="toast-message">コピーしました</span>
+  </div>
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between py-4 gap-3">
+        <div class="flex items-start sm:items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-lg shrink-0 shadow-sm">
+            米
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                監督署調査 完了報告
+              </span>
+              <span class="text-xs text-slate-500">打合せ実施日：2026年11月6日</span>
+            </div>
+            <h1 class="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">
+              米山製作所 今後のタスク・就業規則改定・助成金手続き共有ポータル
+            </h1>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 self-end md:self-auto no-print">
+          <button id="btn-open-export" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+            </svg>
+            共有用テキスト出力
+          </button>
+          <button id="btn-print" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+            </svg>
+            印刷表示
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex overflow-x-auto no-print -mb-px gap-1 sm:gap-2" aria-label="Tabs">
+        <button type="button" data-tab="overview" class="nav-tab tab-active whitespace-nowrap px-3.5 py-2.5 text-xs sm:text-sm rounded-t-lg transition flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+          1. 全体概要・スケジュール
+        </button>
+        <button type="button" data-tab="tasks" class="nav-tab text-slate-600 hover:text-slate-900 hover:bg-slate-50 whitespace-nowrap px-3.5 py-2.5 text-xs sm:text-sm rounded-t-lg transition flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+          2. 今後のタスク一覧
+          <span id="nav-task-badge" class="ml-1 px-1.5 py-0.5 text-xs rounded-full bg-blue-100 text-blue-700 font-semibold">0/9</span>
+        </button>
+        <button type="button" data-tab="changes" class="nav-tab text-slate-600 hover:text-slate-900 hover:bg-slate-50 whitespace-nowrap px-3.5 py-2.5 text-xs sm:text-sm rounded-t-lg transition flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+          3. 就業規則・制度の変更点
+        </button>
+        <button type="button" data-tab="decisions" class="nav-tab text-slate-600 hover:text-slate-900 hover:bg-slate-50 whitespace-nowrap px-3.5 py-2.5 text-xs sm:text-sm rounded-t-lg transition flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          4. 社内で決めること（4項目）
+        </button>
+        <button type="button" data-tab="minutes" class="nav-tab text-slate-600 hover:text-slate-900 hover:bg-slate-50 whitespace-nowrap px-3.5 py-2.5 text-xs sm:text-sm rounded-t-lg transition flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+          5. 11/6 会議記録・発言ログ
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- TAB 1: OVERVIEW & SCHEDULE -->
+    <section id="panel-overview" class="tab-panel space-y-6">
+      <!-- Top Banner -->
+      <div class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 rounded-2xl p-6 text-white shadow-md">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div class="space-y-2 max-w-3xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-blue-100 text-xs font-medium">
+              <span>労働基準監督署 調査完了のご報告</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold leading-snug">
+              調査は大きな指摘なく無事に完了しました。締め日変更・次回36協定に向けた整備と助成金手続きを進めます。
+            </h2>
+            <p class="text-sm text-blue-100 leading-relaxed">
+              2026年11月6日の調査および打合せに基づき、今後の対応を<strong>「①長時間労働対策と健康相談窓口」「②就業規則改定（8時間統一・日曜起算）」「③計画年休の導入と働き方改革推進支援助成金（年休コース：25万円）申請」</strong>の3つの柱で整理しています。
+            </p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 shrink-0 flex flex-col justify-between min-w-[240px]">
+            <div class="text-xs text-blue-200 font-medium">全体のタスク完了状況</div>
+            <div class="flex items-baseline justify-between mt-1">
+              <span id="overview-progress-text" class="text-2xl font-bold">0 / 9 完了</span>
+              <span id="overview-progress-pct" class="text-sm font-semibold text-emerald-300">0%</span>
+            </div>
+            <div class="w-full bg-white/20 h-2.5 rounded-full mt-2 overflow-hidden">
+              <div id="overview-progress-bar" class="bg-emerald-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <button type="button" data-goto-tab="tasks" class="mt-3 text-xs text-white bg-white/20 hover:bg-white/30 py-1.5 px-3 rounded-lg font-medium transition text-center">
+              タスクチェックリストを開く →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Metrics / Highlight Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-amber-800">最優先・11/30期限</span>
+              <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div class="mt-3 text-2xl font-bold text-slate-900">助成金 25万円</div>
+            <div class="text-xs text-slate-500 mt-1">働き方改革推進支援助成金（年休コース・計画年休のみ対象）</div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600">
+            <strong>2026年11月30日</strong>までに就業規則改定・届出が必要（<strong>当社手数料：10万円</strong>）
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-rose-800">重要・12/15期限</span>
+              <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            </div>
+            <div class="mt-3 text-2xl font-bold text-slate-900">残業削減報告書</div>
+            <div class="text-xs text-slate-500 mt-1">提出済2名分の記録（目標42h）を基に作成</div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600">
+            <strong>2026年12月15日</strong>までの状況を確認し、相談担当にて報告書を起案
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-blue-100 text-blue-800">就業規則・カレンダー</span>
+              <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div class="mt-3 text-2xl font-bold text-slate-900">1日 8時間 統一</div>
+            <div class="text-xs text-slate-500 mt-1">年間休日117日維持・週の起算日を日曜日へ</div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600">
+            7時間50分表記を解消し、10分は有給（賃金発生）の休憩として整理
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-purple-100 text-purple-800">社内での検討事項</span>
+              <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+            </div>
+            <div class="mt-3 text-2xl font-bold text-slate-900">要決定 4項目</div>
+            <div class="text-xs text-slate-500 mt-1">窓口担当者・夏休み計画年休2日・有給なし対応等</div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600">
+            <button type="button" data-goto-tab="decisions" class="text-purple-700 font-semibold hover:underline">
+              「4. 社内で決めること」タブで選択・入力 →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Pillars Overview -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Pillar 1 -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+          <div class="bg-slate-50 px-5 py-4 border-b border-slate-200 flex items-center gap-3">
+            <span class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold text-sm flex items-center justify-center shrink-0">1</span>
+            <h3 class="font-bold text-slate-900 text-base">長時間労働への対応と健康相談体制</h3>
+          </div>
+          <div class="p-5 space-y-3 text-sm text-slate-600 flex-1">
+            <p class="leading-relaxed">
+              36協定の上限（42時間・45時間）を超えた際、医師の面接指導は手間と費用がかかるため、まずは<strong>社内に「心身の健康相談窓口」を設置</strong>します。
+            </p>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold mt-0.5">•</span>
+                <span><strong>社内窓口での体調確認：</strong>一定時間を超えて残業した従業員に「めまいがないか」「体調はどうか」を確認し、状況に応じて会社が対応</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold mt-0.5">•</span>
+                <span><strong>安全衛生委員会の議事録整備：</strong>毎月の委員会で社長または安全衛生管理者より「有給取得促進・長時間労働抑制」を発言し、委員の賛同と窓口設置を記録</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold mt-0.5">•</span>
+                <span><strong>削減報告書の作成（12/15まで）：</strong>今回提出した2名分（42時間目標で管理中）の記録を基に、残業削減を示す報告書を作成</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+          <div class="bg-slate-50 px-5 py-4 border-b border-slate-200 flex items-center gap-3">
+            <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white font-bold text-sm flex items-center justify-center shrink-0">2</span>
+            <h3 class="font-bold text-slate-900 text-base">就業規則（労働時間・休憩・締め日）の変更</h3>
+          </div>
+          <div class="p-5 space-y-3 text-sm text-slate-600 flex-1">
+            <p class="leading-relaxed">
+              締め日変更に伴う就業規則届出に合わせ、外部から見ても疑問が生じないよう<strong>1日の所定労働時間を「8時間」に統一</strong>し、システム運用も簡素化します。
+            </p>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-600 font-bold mt-0.5">•</span>
+                <span><strong>所定労働時間を8時間に統一：</strong>従来の「7時間50分」表記を改め8時間に統一。10分間のサービス休憩は「賃金が発生する時間」として整理</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-600 font-bold mt-0.5">•</span>
+                <span><strong>日曜起算と年間休日117日の維持：</strong>8時間基準でカレンダーを整え、週の起算日を日曜日に変更。年間休日117日（法定105日＋12日）は維持</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-600 font-bold mt-0.5">•</span>
+                <span><strong>時間外上限は現状維持：</strong>特別条項の「月75時間・年720時間」は維持しつつ、社内では「月60時間超え防止（対象者は42時間目標）」を引き続き周知</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+          <div class="bg-slate-50 px-5 py-4 border-b border-slate-200 flex items-center gap-3">
+            <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-bold text-sm flex items-center justify-center shrink-0">3</span>
+            <h3 class="font-bold text-slate-900 text-base">計画年休の導入と助成金申請（年休コース）</h3>
+          </div>
+          <div class="p-5 space-y-3 text-sm text-slate-600 flex-1">
+            <p class="leading-relaxed">
+              <strong>「働き方改革推進支援助成金（年休コース）」</strong>として、計画年休の導入により<strong>25万円の助成金</strong>を申請します（特別休暇は対象外）。<strong>2026年11月30日まで</strong>に手続きを進めます。
+            </p>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold mt-0.5">•</span>
+                <span><strong>計画年休2日間の導入（助成金25万円）：</strong>2027年の夏季休暇（8月）中に年次有給休暇を2日間一斉付与する暫定カレンダーと労使協定を作成</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold mt-0.5">•</span>
+                <span><strong>就業規則改定と届出手続き（当社手数料10万円）：</strong>計画年休の規定追加・就業規則改定および届出手続きを実施（当社の手数料は10万円）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold mt-0.5">•</span>
+                <span><strong>有給がない社員（1〜3名）の扱い：</strong>計画年休日に有給がない方について「①出勤」「②休業手当60%」「③有給前借り」から運用を決定</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roadmap Timeline -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          今後のスケジュール・手続きタイムライン
+        </h3>
+        <div class="mt-5 grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="relative p-4 rounded-xl bg-amber-50/70 border border-amber-200">
+            <div class="text-xs font-bold text-amber-800 uppercase">STEP 1｜2026年11月30日（月）まで</div>
+            <div class="font-bold text-slate-900 text-sm mt-1">助成金（年休コース：25万円）関連の規則改定・届出</div>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              ・働き方改革推進支援助成金（年休コース：計画年休のみ対象・25万円）の手続き<br>
+              ・2027年暫定カレンダー作成（夏休みの計画年休2日特定）と労使協定締結<br>
+              ・就業規則改定と届出手続き（当社の手数料：10万円）
+            </p>
+          </div>
+
+          <div class="relative p-4 rounded-xl bg-rose-50/70 border border-rose-200">
+            <div class="text-xs font-bold text-rose-800 uppercase">STEP 2｜2026年12月15日（火）まで</div>
+            <div class="font-bold text-slate-900 text-sm mt-1">長時間労働の削減報告書の作成・確認</div>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              ・今回提出した2名分（月42時間目標で運用中）の記録を確認<br>
+              ・12月15日までの残業削減実績をまとめた報告書を起案・作成
+            </p>
+          </div>
+
+          <div class="relative p-4 rounded-xl bg-blue-50/70 border border-blue-200">
+            <div class="text-xs font-bold text-blue-800 uppercase">STEP 3｜次回36協定・健康確保措置の選択</div>
+            <div class="font-bold text-slate-900 text-sm mt-1">健康確保措置（⑦・⑧）の選択をご検討ください</div>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              ・「⑦心とからだの健康問題についての相談窓口を設置すること」<br>
+              ・「⑧労働者の勤務状況及びその健康状態に配慮し、必要な場合には適切な部署に配置転換をすること。」<br>
+              上記の選択をご検討ください。
+            </p>
+          </div>
+
+          <div class="relative p-4 rounded-xl bg-emerald-50/70 border border-emerald-200">
+            <div class="text-xs font-bold text-emerald-800 uppercase">STEP 4｜2027年8月（夏季休暇）</div>
+            <div class="font-bold text-slate-900 text-sm mt-1">夏季休暇に合わせた計画年休2日間の一斉実施</div>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              ・労使協定で定めた夏季休暇中の2日間を計画年休として一斉取得<br>
+              ・有給がない従業員（1〜3名）へ決定したルールに基づき対応
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: TASKS CHECKLIST -->
+    <section id="panel-tasks" class="tab-panel hidden space-y-6">
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 sm:p-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">今後の対応タスク・手続きチェックリスト</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+              チェックを入れると進捗が自動保存されます。担当別・テーマ別での絞り込みが可能です。
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 no-print">
+            <button type="button" id="btn-check-all" class="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition">
+              すべて完了にする
+            </button>
+            <button type="button" id="btn-uncheck-all" class="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition">
+              チェックをリセット
+            </button>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-4 no-print">
+          <div>
+            <label for="filter-owner" class="block text-xs font-semibold text-slate-600 mb-1">主担当で絞り込み</label>
+            <select id="filter-owner" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="ALL">すべての担当（全9件）</option>
+              <option value="米山製作所">米山製作所（社内決定・周知）</option>
+              <option value="相談担当（社労士）">相談担当・社労士（起案・届出・手続き）</option>
+              <option value="共同">共同対応（米山製作所＋相談担当）</option>
+            </select>
+          </div>
+          <div>
+            <label for="filter-category" class="block text-xs font-semibold text-slate-600 mb-1">テーマで絞り込み</label>
+            <select id="filter-category" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="ALL">すべてのテーマ</option>
+              <option value="1. 長時間労働・健康相談">1. 長時間労働への対応と健康相談体制</option>
+              <option value="2. 就業規則・労働時間">2. 就業規則の労働時間・休憩・締め日変更</option>
+              <option value="3. 計画年休・助成金（年休コース）">3. 計画年休の導入と助成金申請（年休コース）</option>
+            </select>
+          </div>
+          <div>
+            <label for="filter-status" class="block text-xs font-semibold text-slate-600 mb-1">状態で絞り込み</label>
+            <select id="filter-status" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="ALL">すべて表示</option>
+              <option value="PENDING">未完了のみ</option>
+              <option value="COMPLETED">完了済みのみ</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Task List Container -->
+        <div id="task-list-container" class="space-y-3 mt-4"></div>
+      </div>
+    </section>
+
+    <!-- TAB 3: RULE CHANGES & BEFORE/AFTER -->
+    <section id="panel-changes" class="tab-panel hidden space-y-6">
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 sm:p-6">
+        <h2 class="text-lg font-bold text-slate-900">就業規則・労務運用の変更点（現行 vs 改定後）</h2>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1">
+          今回の監督署調査および打合せで確認された、就業規則・カレンダー・労務管理の変更点一覧です。
+        </p>
+
+        <div class="mt-5 overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[680px]">
+            <thead>
+              <tr class="border-b border-slate-200 bg-slate-50 text-xs font-bold text-slate-600 uppercase">
+                <th class="py-3.5 px-4 w-1/5">項目</th>
+                <th class="py-3.5 px-4 w-1/4">これまでの運用・現状</th>
+                <th class="py-3.5 px-4 w-1/3 bg-blue-50/60 text-blue-900">今後の改定・運用方針</th>
+                <th class="py-3.5 px-4">変更の理由・ポイント</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-xs sm:text-sm">
+              <tr>
+                <td class="py-4 px-4 font-bold text-slate-900">
+                  1日の所定労働時間
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  就業規則上「7時間50分」と現場での「8時間」認識が混在
+                </td>
+                <td class="py-4 px-4 bg-blue-50/30 font-semibold text-slate-900">
+                  <span class="text-blue-700 font-bold">「1日 8時間」</span>に完全統一（就業規則を改定・届出）
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  監督署等の調査時に「7時間50分なのか8時間なのか」で立ち止まる要因をなくし、現場の実態に合わせて明確化するため。
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-4 font-bold text-slate-900">
+                  10分間のサービス休憩と休憩時間
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  10分間を労働時間中のサービス休憩として運用（規定上の整理が曖昧）
+                </td>
+                <td class="py-4 px-4 bg-blue-50/30 font-semibold text-slate-900">
+                  10分は<span class="text-blue-700 font-bold">「賃金が発生する時間（有給）」</span>として整理し、60分休憩と合わせて規定変更
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  賃金支払い対象であることを明確にし、労働時間8時間との整合性を取るため。
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-4 font-bold text-slate-900">
+                  年間カレンダーと年間休日数
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  年間休日 117日（7時間50分ベースとの混在あり）
+                </td>
+                <td class="py-4 px-4 bg-blue-50/30 font-semibold text-slate-900">
+                  8時間勤務を基準にカレンダーを整備。<span class="text-emerald-700 font-bold">年間休日117日は維持</span>
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  法定基準（105日）より12日多い117日を確保できているため、8時間基準にしても十分な休日数を維持可能。
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-4 font-bold text-slate-900">
+                  締め日変更と週の起算日
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  締め日変更を予定（就業規則自体は準備済み）
+                </td>
+                <td class="py-4 px-4 bg-blue-50/30 font-semibold text-slate-900">
+                  締め日変更に合わせ届出。週の起算日を<span class="text-blue-700 font-bold">「日曜日」</span>に統一
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  日曜起算にすることで、勤怠・給与システムの計算および運用を大幅に簡素化できるため。
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-4 font-bold text-slate-900">
+                  36協定（時間外労働）の上限と社内目標
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  特別条項：月75時間・年720時間（過去に1名85時間の事例あり）
+                </td>
+                <td class="py-4 px-4 bg-blue-50/30 font-semibold text-slate-900">
+                  上限<span class="text-blue-700 font-bold">「月75h・年720h」は現状維持</span>。<br>社内周知は「月60h以内」、対象者は<span class="text-emerald-700 font-bold">「月42h目標」</span>
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  8時間勤務を前提に年720時間枠を守るため75時間設定を維持しつつ、実運用は60時間（対象者は42時間）以内に抑制。
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-4 font-bold text-slate-900">
+                  長時間労働時の健康管理体制
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  一定時間超過時に「医師による面接指導」とする場合は手間・費用が大
+                </td>
+                <td class="py-4 px-4 bg-blue-50/30 font-semibold text-slate-900">
+                  社内に<span class="text-blue-700 font-bold">「心と体の健康相談窓口」</span>を設置し、担当者による体調確認を実施
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  次回36協定届出に合わせ、めまいや体調不良の有無を社内で確認・対応できる現実的な仕組みを整備し安全衛生委員会に記録。
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-4 font-bold text-slate-900">
+                  年次有給休暇の計画的付与（計画年休）
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  計画年休の規定・労使協定なし
+                </td>
+                <td class="py-4 px-4 bg-blue-50/30 font-semibold text-slate-900">
+                  <span class="text-emerald-700 font-bold">2027年夏季休暇中に「2日間」</span>を一斉計画年休として導入（助成金25万円）
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  5日を超える有給部分のうち2日間を夏休みに一斉付与することで有給消化を促進し、働き方改革推進支援助成金（年休コース：25万円）の対象とする（特別休暇は対象外）。
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-4 font-bold text-slate-900">
+                  助成金申請と就業規則改定・届出の手数料
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  2026年11月30日までの対応が必要
+                </td>
+                <td class="py-4 px-4 bg-blue-50/30 font-semibold text-slate-900">
+                  <span class="text-emerald-700 font-bold">働き方改革推進支援助成金（年休コース）25万円</span><br>
+                  <span class="text-slate-700 text-xs">※就業規則改定・届出手続きの<strong>当社手数料：10万円</strong></span>
+                </td>
+                <td class="py-4 px-4 text-slate-600">
+                  計画年休のみを対象として25万円の助成金を申請。就業規則改定と届出手続きを行うことで、当社の手数料は10万円となります。
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: DECISIONS & SIMULATOR -->
+    <section id="panel-decisions" class="tab-panel hidden space-y-6">
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold shrink-0 mt-0.5">!</div>
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-amber-950">
+              会議で結論に至らなかった「4つの要決定事項」（米山製作所様 ご検討事項）
+            </h2>
+            <p class="text-xs sm:text-sm text-amber-900 mt-1 leading-relaxed">
+              以下の4項目は、就業規則の改定文案・労使協定・2027年カレンダーを完成させるために米山製作所様にて方針を決めていただく必要がある項目です。ここで選択・入力した内容は右上の<strong>「共有用テキスト出力」</strong>からそのままコピーして社労士（相談担当）や社内メンバーへ共有できます。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Issue 1 -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <span class="text-xs font-bold px-2.5 py-1 rounded bg-blue-100 text-blue-800">課題 1｜健康相談体制</span>
+            <span class="text-xs text-slate-500">次回36協定・安全衛生委員会関連</span>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base">
+            社内の「心身の健康相談窓口」の担当者・対象基準の決定
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            一定時間を超えて残業した従業員に対し、「めまいがしないか」「体調はどうか」を確認する社内窓口の担当者名と、声かけを行う残業時間の基準を定めます。
+          </p>
+          <div class="space-y-3 pt-2">
+            <div>
+              <label for="input-health-person" class="block text-xs font-semibold text-slate-700 mb-1">窓口のご担当者名（役職・氏名）</label>
+              <input id="input-health-person" type="text" placeholder="例：総務担当 〇〇 ／ 安全衛生管理者 〇〇" class="decision-input w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+              <label for="input-health-threshold" class="block text-xs font-semibold text-slate-700 mb-1">体調確認・相談案内の対象基準（月間残業時間）</label>
+              <select id="input-health-threshold" class="decision-input w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="月42時間（または45時間）超えで窓口案内・体調声かけ">月42時間（または45時間）超えで窓口案内・体調声かけ（36協定原則上限基準）</option>
+                <option value="月60時間超えで必須確認（42時間超えで任意相談案内）">月60時間超えで必須確認（42時間超えで任意相談案内）</option>
+                <option value="未定（相談担当と打ち合わせて決定）">未定（相談担当と打ち合わせて決定）</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Issue 2 -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <span class="text-xs font-bold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800">課題 2｜11/30助成金期限</span>
+            <span class="text-xs text-slate-500">2027年暫定カレンダー・労使協定</span>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base">
+            2027年夏季休暇中の「計画年休 2日間」の対象日特定
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <strong>働き方改革推進支援助成金（年休コース：計画年休のみ対象・25万円／当社手数料10万円）</strong>の申請には、労使協定で「何月何日と何月何日を計画年休とするか」を特定する必要があります（来年のカレンダーは後から変更可能性がある前提の暫定版で可）。
+          </p>
+          <div class="space-y-3 pt-2">
+            <div>
+              <label for="input-summer-dates" class="block text-xs font-semibold text-slate-700 mb-1">2027年8月 夏季休暇中の計画年休（2日間）の候補日</label>
+              <input id="input-summer-dates" type="text" placeholder="例：2027年8月12日(木)・8月13日(金) の2日間（お盆前後）" class="decision-input w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-600">
+              <strong>会議での確認ポイント：</strong>5日すべてを計画年休にする必要はなく、最低「2日間」を夏季休暇中に一斉付与する形にすれば、ほぼ全員に無理なく行き渡り、助成金要件も満たせます。
+            </div>
+          </div>
+        </div>
+
+        <!-- Issue 3 -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4 lg:col-span-2">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <span class="text-xs font-bold px-2.5 py-1 rounded bg-purple-100 text-purple-800">課題 3｜計画年休の運用ルール</span>
+            <span class="text-xs text-slate-500">対象見込み：社内 1〜3名程度（石川様とも共有済）</span>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base">
+            計画年休の日に「年次有給休暇がない従業員」への対応方針（3つの選択肢）
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            一斉計画年休の日に、入社時期等の関係で有給休暇の残日数がない従業員（1〜3名程度）について、以下の3通りのいずれで運用するかを選択してください。
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+            <label class="cursor-pointer border rounded-xl p-4 transition hover:border-blue-400 flex flex-col justify-between bg-slate-50/50" id="card-opt-work">
+              <div>
+                <div class="flex items-center gap-2">
+                  <input type="radio" name="no-pto-policy" value="案A：当日は通常通り出勤（勤務）してもらう" class="decision-radio w-4 h-4 text-blue-600">
+                  <span class="font-bold text-sm text-slate-900">案A：当日に出勤してもらう</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                  有給がない方は計画年休日に出勤して業務を行ってもらう方法です。追加の手当や前借り管理は発生しません。
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-200 text-[11px] text-slate-500">
+                注意点：夏休み期間中に該当者のみ出勤して行う業務があるか確認が必要
+              </div>
+            </label>
+
+            <label class="cursor-pointer border rounded-xl p-4 transition hover:border-blue-400 flex flex-col justify-between bg-slate-50/50" id="card-opt-allowance">
+              <div>
+                <div class="flex items-center gap-2">
+                  <input type="radio" name="no-pto-policy" value="案B：会社都合で休ませ、休業手当（60%以上）を支給する" class="decision-radio w-4 h-4 text-blue-600">
+                  <span class="font-bold text-sm text-slate-900">案B：休業手当（60%）を支給</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                  会社から一斉に休ませる扱いとし、労働基準法に基づき平均賃金の60%以上の「休業手当」を支給する方法です。
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-200 text-[11px] text-slate-500">
+                注意点：退職時の精算トラブルがなく、法的に最もシンプルで確実
+              </div>
+            </label>
+
+            <label class="cursor-pointer border rounded-xl p-4 transition hover:border-blue-400 flex flex-col justify-between bg-slate-50/50" id="card-opt-advance">
+              <div>
+                <div class="flex items-center gap-2">
+                  <input type="radio" name="no-pto-policy" value="案C：有給休暇を「前借り」付与する（次回付与時に自動控除・退職時精算規定あり）" class="decision-radio w-4 h-4 text-blue-600" checked>
+                  <span class="font-bold text-sm text-slate-900">案C：有給休暇の「前借り」</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                  当日は有給扱いで休ませ、次回付与時（例：10日付与時）に自動的に前借り分を差し引く方法です。
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-200 text-[11px] text-slate-500">
+                注意点：次回付与前に退職した場合に「最終給与で欠勤控除する」旨の合意・規定が必要
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Issue 4 -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-4 lg:col-span-2">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <span class="text-xs font-bold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800">課題 4｜36協定の健康確保措置 & 助成金・手数料のご確認</span>
+            <span class="text-xs text-slate-500">働き方改革推進支援助成金（年休コース：25万円）／当社手数料：10万円</span>
+          </div>
+          <h3 class="font-bold text-slate-900 text-base">
+            次回36協定の健康確保措置（⑦・⑧）の選択および助成金手続きのご確認
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            助成金は<strong>「働き方改革推進支援助成金（年休コース）」として計画年休のみを対象（25万円・特別休暇は対象外）</strong>とし、就業規則改定と届出手続きに伴う<strong>当社の手数料は10万円</strong>となります。あわせて、次回36協定における健康確保措置（⑦相談窓口の設置、⑧必要に応じた配置転換）の選択をご検討ください。
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div>
+              <label for="input-special-leave" class="block text-xs font-semibold text-slate-700 mb-1">36協定の健康確保措置（⑦・⑧）の選択案</label>
+              <select id="input-special-leave" class="decision-input w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="⑦心とからだの健康問題についての相談窓口を設置すること">⑦心とからだの健康問題についての相談窓口を設置すること</option>
+                <option value="⑧労働者の勤務状況及びその健康状態に配慮し、必要な場合には適切な部署に配置転換をすること。">⑧労働者の勤務状況及びその健康状態に配慮し、必要な場合には適切な部署に配置転換をすること。</option>
+                <option value="⑦と⑧の両方を選択する">⑦と⑧の両方を選択する</option>
+              </select>
+            </div>
+            <div>
+              <label for="input-memo" class="block text-xs font-semibold text-slate-700 mb-1">社内連絡メモ・質問事項（任意）</label>
+              <input id="input-memo" type="text" placeholder="例：計画年休（25万円・手数料10万円）の手続き日程について 等" class="decision-input w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: MEETING MINUTES & TRANSCRIPT -->
+    <section id="panel-minutes" class="tab-panel hidden space-y-6">
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">2026年11月6日 会議記録・発言ログ検索</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+              「11-06 会議：長時間労働対策・就業規則改定・休暇制度と助成金」（11:44〜 約13分間）のタイムスタンプ付き発言要旨です。
+            </p>
+          </div>
+          <div class="w-full sm:w-72 no-print">
+            <input id="search-transcript" type="text" placeholder="キーワード検索（例：8時間、助成金、前借り）" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+        </div>
+
+        <div id="transcript-container" class="divide-y divide-slate-100 mt-4 max-h-[600px] overflow-y-auto custom-scrollbar pr-2"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal for Export / Copy Summary -->
+  <div id="export-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+        <h3 class="font-bold text-slate-900 text-base">米山製作所 社内共有・連絡用テキスト出力</h3>
+        <button id="btn-close-export" type="button" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto flex-1 space-y-3">
+        <p class="text-xs text-slate-600">
+          現在のタスク進捗状況と、「4. 社内で決めること」で選択した内容をまとめたテキストです。メール、チャット、社内回覧にそのまま貼り付けてご活用いただけます。
+        </p>
+        <textarea id="export-textarea" rows="14" readonly class="w-full rounded-xl border border-slate-300 bg-slate-50 p-3.5 text-xs sm:text-sm font-mono text-slate-800 focus:outline-none"></textarea>
+      </div>
+      <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-end gap-2">
+        <button id="btn-copy-export" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+          テキストをコピーする
+        </button>
+        <button id="btn-close-export-bottom" type="button" class="px-4 py-2 rounded-lg text-sm font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 transition">
+          閉じる
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-10 py-4 text-center text-xs text-slate-500 no-print">
+    株式会社米山製作所 労務管理・制度改定共有ポータル（2026年11月6日 監督署調査後打合せ記録に基づく）
+  </footer>
+
+  <script>
+    // Safe localStorage wrapper
+    function loadState(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function saveState(key, val) {
+      try {
+        localStorage.setItem(key, JSON.stringify(val));
+      } catch (e) {
+        // Ignore storage errors in sandboxed iframes
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.textContent = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 2600);
+    }
+
+    // Initial Tasks Data based on the Summary & Transcript PDFs
+    const initialTasks = [
+      {
+        id: 't1',
+        category: '3. 計画年休・助成金（年休コース）',
+        title: '働き方改革推進支援助成金（年休コース：計画年休のみ・25万円）の申請手続きを進める',
+        detail: '計画年休の導入を対象とした働き方改革推進支援助成金（年休コース：25万円、特別休暇は対象外）を申請する。就業規則改定と届出手続きに伴う当社手数料は10万円。',
+        owner: '相談担当（社労士）',
+        deadline: '2026年11月30日（月）',
+        priority: '最優先',
+        completed: false
+      },
+      {
+        id: 't2',
+        category: '3. 計画年休・助成金（年休コース）',
+        title: '2027年のカレンダーを暫定作成し、夏季休暇中に計画年休とする2日間を特定する',
+        detail: '2027年8月の夏休み期間中に一斉付与する計画年休2日間を特定し、暫定カレンダーを作成する（後から変更の可能性がある前提で作成可）。',
+        owner: '共同',
+        deadline: '2026年11月30日（月）',
+        priority: '最優先',
+        completed: false
+      },
+      {
+        id: 't3',
+        category: '3. 計画年休・助成金（年休コース）',
+        title: '計画年休の日程を反映した労使協定の文案を作成し、就業規則を改定して届出を行う',
+        detail: '特定した夏休み計画年休2日間を記載した労使協定書を作成・締結し、就業規則の改定届出を行う（就業規則改定・届出手続きの当社手数料：10万円）。',
+        owner: '相談担当（社労士）',
+        deadline: '2026年11月30日（月）',
+        priority: '最優先',
+        completed: false
+      },
+      {
+        id: 't4',
+        category: '3. 計画年休・助成金（年休コース）',
+        title: '計画年休の日に年次有給休暇がない従業員（1〜3名）への対応方針を決定する',
+        detail: '①当日勤務してもらう、②会社都合で休ませて休業手当60%を支給する、③有給休暇を前借りする（退職時の欠勤控除精算ルール含む）の3案から決定する。',
+        owner: '米山製作所',
+        deadline: '2026年11月30日（月）目安',
+        priority: '重要',
+        completed: false
+      },
+      {
+        id: 't5',
+        category: '1. 長時間労働・健康相談',
+        title: '提出された2名分の記録をもとに、残業時間を削減できたことが分かる報告書を作成する',
+        detail: '今回提出した2名分（月42時間を目標に抑制中）の記録と12月15日までの対象期間の状況を確認し、残業削減実績を示す報告書を起案・作成する。',
+        owner: '相談担当（社労士）',
+        deadline: '2026年12月15日（火）',
+        priority: '重要',
+        completed: false
+      },
+      {
+        id: 't6',
+        category: '1. 長時間労働・健康相談',
+        title: '社内の「心身の健康相談窓口」の担当者を定め、体調確認と会社の対応手順を整える',
+        detail: '医師の面接指導に代わる社内初期対応として、一定時間を超えて働いた従業員に「めまいがないか・体調はどうか」を確認する窓口担当者を決め、次回の36協定準備に合わせて導入する。',
+        owner: '米山製作所',
+        deadline: '次回36協定届出まで',
+        priority: '重要',
+        completed: false
+      },
+      {
+        id: 't7',
+        category: '1. 長時間労働・健康相談',
+        title: '安全衛生委員会で有給取得促進・長時間労働抑制・健康相談窓口を周知し議事録に残す',
+        detail: '毎月の安全衛生委員会にて、社長または安全衛生管理者からの発言、委員の賛同、心身の健康相談窓口の設置・周知内容を議事録に記録する。',
+        owner: '米山製作所',
+        deadline: '次回安全衛生委員会',
+        priority: '通常',
+        completed: false
+      },
+      {
+        id: 't8',
+        category: '2. 就業規則・労働時間',
+        title: '締め日の変更にあわせて就業規則を改定し、1日の所定労働時間を「8時間」に統一して届出を行う',
+        detail: '7時間50分表記を8時間に統一し、従来の10分間のサービス休憩は「賃金が発生する時間」として整理。60分休憩と合わせて規定を改定し届出を行う。',
+        owner: '共同',
+        deadline: '締め日変更・届出時',
+        priority: '重要',
+        completed: false
+      },
+      {
+        id: 't9',
+        category: '2. 就業規則・労働時間',
+        title: '8時間勤務前提のカレンダー整備（日曜起算・年間休日117日維持）と残業抑制（月60h上限・42h目標）の継続周知',
+        detail: '週の起算日を日曜日としてシステム運用を簡素化。36協定の特別条項上限（75h/年720h）は維持しつつ、社内では60時間を超えないよう周知（該当者は42時間目標）を継続する。',
+        owner: '共同',
+        deadline: '継続運用・改定時',
+        priority: '通常',
+        completed: false
+      }
+    ];
+
+    // Transcript entries from the 6-page PDF
+    const transcriptData = [
+      {
+        time: '00:00:00 - 00:01:20',
+        speaker: '話者1（相談担当）・話者2・話者3',
+        topic: '社内「心と体の健康相談窓口」の設置について',
+        text: '36協定の42時間・45時間を超えた際、医師の面接指導を行うと手間も費用もかかるため、まずは社内に「心と体の健康相談窓口」を設置する方針を提案。社内で担当者の名前を立て、一定時間を超えて残業した方に「めまいがしないか」「体調はどうか」を確認し、状況に応じて会社で対応する形を次回の36協定準備に合わせて導入する。'
+      },
+      {
+        time: '00:01:24 - 00:03:35',
+        speaker: '話者1（相談担当）・話者2',
+        topic: '所定労働時間を「7時間50分」から「8時間」へ統一・日曜起算化・年間休日117日',
+        text: '締め日変更に伴う就業規則の届出に合わせ、1日の所定労働時間を「8時間」に統一することを決定。10分間は労働時間中のサービス休憩（賃金が発生する時間）として整理する。年間休日は117日あり（法定105日より12日多い）、カレンダーも8時間基準に整える。また、週の起算日を「日曜日」にすることでシステム運用の簡素化を図る。'
+      },
+      {
+        time: '00:03:36 - 00:04:58',
+        speaker: '話者1（相談担当）・話者3・話者4',
+        topic: '36協定の特別条項上限（75時間・年720時間）の維持と社内60時間アナウンス',
+        text: '特別条項の75時間設定は、8時間勤務を前提に年間720時間の上限を超えないように設定したもの（法的には80時間まで可能だが過去に1名85時間が出た経緯あり）。社内的なアナウンスとしては「60時間を超えないように」と継続して伝えており、上限設定は現状のまま維持する。'
+      },
+      {
+        time: '00:04:59 - 00:06:55',
+        speaker: '話者1（相談担当）・話者4',
+        topic: '安全衛生委員会の議事録整備と12月15日までの残業削減報告書',
+        text: '毎月の安全衛生委員会で、社長または安全衛生管理者から「有給休暇の取得促進と長時間労働の抑制」を発言し、委員が賛同した旨の議事録と健康相談窓口の周知を残す。また、対象者（加藤さん等）は現在42時間を目標に抑制できているため、12月15日までの状況を確認し、今回提出した2名分の記録をもとに削減実績を示す報告書を起案する。'
+      },
+      {
+        time: '00:06:58 - 00:09:05',
+        speaker: '話者1（相談担当）・話者3・話者4',
+        topic: '就業規則の改定と「働き方改革推進支援助成金（年休コース：計画年休25万円・11/30期限）」',
+        text: '準備済みの就業規則に対し、定時間（8時間）と休憩時間（60分＋10分整理）を反映する。あわせて「働き方改革推進支援助成金（年休コース）」として、年次有給休暇の計画的付与（計画年休）のみを対象（25万円・特別休暇は対象外）として11月30日までに手続きを進める（就業規則改定と届出手続きに伴う当社手数料は10万円）。'
+      },
+      {
+        time: '00:09:10 - 00:11:54',
+        speaker: '話者1（相談担当）・話者3・話者4',
+        topic: '2027年8月夏休みの計画年休（2日間）設定と、有給がない社員（1〜3名）への3つの対応案',
+        text: '計画年休は5日すべてではなく「2日間」を2027年8月の夏休みに一斉付与する形で暫定カレンダーと労使協定を作成する。有給がない社員（1〜3名、石川さんとも相談済）の対応は、①働いてもらう、②会社都合で休ませて60%休業手当を支給する、③有給を前借りする（次回付与時に自動控除、退職時は最終給与で欠勤控除）の3通りから確認・決定する。'
+      },
+      {
+        time: '00:11:55 - 00:12:39',
+        speaker: '話者1（相談担当）・話者2',
+        topic: '今回の労働基準監督署調査の総括',
+        text: '今年は調査が非常に多い中、昨日の他社事例と比べても、今日の米山製作所さんの調査は非常に綺麗に終わることができ、安定した労務体制として評価できる結果となった。'
+      }
+    ];
+
+    // Load saved state
+    let taskState = loadState('yoneyama_tasks_v1', {});
+    let decisionState = loadState('yoneyama_decisions_v1', {
+      healthPerson: '',
+      healthThreshold: '月42時間（または45時間）超えで窓口案内・体調声かけ',
+      summerDates: '2027年8月 夏季休暇中の2日間（日程特定中）',
+      noPtoPolicy: '案C：有給休暇を「前借り」付与する（次回付与時に自動控除・退職時精算規定あり）',
+      specialLeave: '⑦心とからだの健康問題についての相談窓口を設置すること',
+      memo: ''
+    });
+
+    function getMergedTasks() {
+      return initialTasks.map(t => ({
+        ...t,
+        completed: taskState[t.id] !== undefined ? taskState[t.id] : t.completed
+      }));
+    }
+
+    function updateProgressUI() {
+      const tasks = getMergedTasks();
+      const total = tasks.length;
+      const done = tasks.filter(t => t.completed).length;
+      const pct = Math.round((done / total) * 100);
+
+      document.getElementById('nav-task-badge').textContent = `${done}/${total}`;
+      document.getElementById('overview-progress-text').textContent = `${done} / ${total} 完了`;
+      document.getElementById('overview-progress-pct').textContent = `${pct}%`;
+      document.getElementById('overview-progress-bar').style.width = `${pct}%`;
+    }
+
+    function renderTasks() {
+      const ownerFilter = document.getElementById('filter-owner').value;
+      const categoryFilter = document.getElementById('filter-category').value;
+      const statusFilter = document.getElementById('filter-status').value;
+
+      const tasks = getMergedTasks().filter(t => {
+        if (ownerFilter !== 'ALL' && t.owner !== ownerFilter) return false;
+        if (categoryFilter !== 'ALL' && t.category !== categoryFilter) return false;
+        if (statusFilter === 'PENDING' && t.completed) return false;
+        if (statusFilter === 'COMPLETED' && !t.completed) return false;
+        return true;
+      });
+
+      const container = document.getElementById('task-list-container');
+      if (tasks.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 text-slate-500 text-sm bg-slate-50 rounded-xl border border-dashed border-slate-300">
+            条件に一致するタスクがありません。フィルタ条件を変更してください。
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = tasks.map(t => {
+        const priorityBadge = t.priority === '最優先'
+          ? 'bg-amber-100 text-amber-800 border-amber-200'
+          : t.priority === '重要'
+          ? 'bg-rose-100 text-rose-800 border-rose-200'
+          : 'bg-slate-100 text-slate-700 border-slate-200';
+
+        const ownerBadge = t.owner === '米山製作所'
+          ? 'bg-purple-100 text-purple-800'
+          : t.owner === '相談担当（社労士）'
+          ? 'bg-blue-100 text-blue-800'
+          : 'bg-emerald-100 text-emerald-800';
+
+        return `
+          <div class="p-4 rounded-xl border transition ${t.completed ? 'bg-slate-50 border-slate-200 opacity-75' : 'bg-white border-slate-200 hover:border-blue-300 shadow-2xs'}">
+            <label class="flex items-start gap-3.5 cursor-pointer">
+              <input type="checkbox" data-task-id="${t.id}" ${t.completed ? 'checked' : ''} class="task-checkbox mt-1 w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <span class="text-[11px] font-bold px-2 py-0.5 rounded border ${priorityBadge}">${t.priority}</span>
+                  <span class="text-[11px] font-semibold px-2 py-0.5 rounded ${ownerBadge}">担当：${t.owner}</span>
+                  <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-600">${t.category}</span>
+                  <span class="text-xs font-semibold text-slate-700 ml-auto">期限目安：${t.deadline}</span>
+                </div>
+                <div class="font-bold text-sm sm:text-base ${t.completed ? 'line-through text-slate-500' : 'text-slate-900'}">
+                  ${t.title}
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                  ${t.detail}
+                </p>
+              </div>
+            </label>
+          </div>
+        `;
+      }).join('');
+
+      updateProgressUI();
+    }
+
+    function renderTranscript() {
+      const q = document.getElementById('search-transcript').value.trim().toLowerCase();
+      const container = document.getElementById('transcript-container');
+
+      const filtered = transcriptData.filter(item => {
+        if (!q) return true;
+        return (
+          item.topic.toLowerCase().includes(q) ||
+          item.text.toLowerCase().includes(q) ||
+          item.speaker.toLowerCase().includes(q)
+        );
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="py-8 text-center text-sm text-slate-500">該当する発言記録が見つかりませんでした。</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <div class="py-4 px-2 hover:bg-slate-50 rounded-lg transition">
+          <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-1">
+            <span class="font-mono font-semibold px-2 py-0.5 bg-slate-100 text-slate-700 rounded">${item.time}</span>
+            <span class="font-medium text-blue-700">${item.speaker}</span>
+          </div>
+          <h4 class="font-bold text-sm text-slate-900">${item.topic}</h4>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">${item.text}</p>
+        </div>
+      `).join('');
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      const target = document.getElementById(`panel-${tabId}`);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.classList.add('tab-active');
+          btn.classList.remove('text-slate-600');
+        } else {
+          btn.classList.remove('tab-active');
+          btn.classList.add('text-slate-600');
+        }
+      });
+    }
+
+    function syncDecisionsToUI() {
+      document.getElementById('input-health-person').value = decisionState.healthPerson || '';
+      document.getElementById('input-health-threshold').value = decisionState.healthThreshold;
+      document.getElementById('input-summer-dates').value = decisionState.summerDates || '';
+      document.getElementById('input-special-leave').value = decisionState.specialLeave;
+      document.getElementById('input-memo').value = decisionState.memo || '';
+
+      document.querySelectorAll('.decision-radio').forEach(r => {
+        r.checked = (r.value === decisionState.noPtoPolicy);
+      });
+    }
+
+    function readDecisionsFromUI() {
+      const checkedRadio = document.querySelector('.decision-radio:checked');
+      decisionState = {
+        healthPerson: document.getElementById('input-health-person').value.trim(),
+        healthThreshold: document.getElementById('input-health-threshold').value,
+        summerDates: document.getElementById('input-summer-dates').value.trim(),
+        noPtoPolicy: checkedRadio ? checkedRadio.value : '',
+        specialLeave: document.getElementById('input-special-leave').value,
+        memo: document.getElementById('input-memo').value.trim()
+      };
+      saveState('yoneyama_decisions_v1', decisionState);
+    }
+
+    function generateSummaryText() {
+      readDecisionsFromUI();
+      const tasks = getMergedTasks();
+      const doneCount = tasks.filter(t => t.completed).length;
+
+      const lines = [
+        '【株式会社米山製作所】労基署調査後の対応タスク・制度改定 共有メモ',
+        '（基準打合せ：2026年11月6日）',
+        '',
+        '■ 1. 主要スケジュール・期限',
+        '・2026年11月30日（月）まで：働き方改革推進支援助成金（年休コース：計画年休のみ対象・25万円）手続き・就業規則改定・労使協定締結（当社手数料：10万円）',
+        '・2026年12月15日（火）まで：残業削減報告書の作成（提出済2名分の記録・月42時間目標の運用実績）',
+        '・次回36協定・締め日変更時：健康確保措置（⑦相談窓口設置・⑧必要に応じた配置転換）の選択、1日の所定労働時間を「8時間」に統一（10分は有給整理）、日曜起算化、年間休日117日維持',
+        '',
+        '■ 2. 社内検討・決定事項（4項目）のステータス',
+        `① 心身の健康相談窓口 担当者：${decisionState.healthPerson || '【未入力・要決定】'}`,
+        `   対象基準：${decisionState.healthThreshold}`,
+        `② 2027年夏季休暇中の計画年休（2日間）候補日：${decisionState.summerDates || '【未入力・要特定】'}`,
+        `③ 計画年休日に有給がない従業員（1〜3名）の対応：${decisionState.noPtoPolicy}`,
+        `④ 36協定の健康確保措置（⑦・⑧）の選択：${decisionState.specialLeave}`,
+        decisionState.memo ? `※ 連絡メモ：${decisionState.memo}` : '',
+        '',
+        `■ 3. 対応タスク進捗（${doneCount} / ${tasks.length} 完了）`,
+        ...tasks.map(t => `${t.completed ? '[完了]' : '[未完]'} (${t.deadline} / ${t.owner}) ${t.title}`)
+      ].filter(Boolean);
+
+      return lines.join('\n');
+    }
+
+    function copyTextToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('クリップボードにコピーしました');
+        }).catch(() => {
+          fallbackCopy(text);
+        });
+      } else {
+        fallbackCopy(text);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.getElementById('export-textarea');
+      ta.value = text;
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('クリップボードにコピーしました');
+      } catch (e) {
+        showToast('テキストを選択してコピーしてください');
+      }
+    }
+
+    // Event Listeners initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      syncDecisionsToUI();
+      renderTasks();
+      renderTranscript();
+
+      // Tab buttons
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchTab(btn.getAttribute('data-tab'));
+        });
+      });
+
+      // Goto tab shortcuts
+      document.querySelectorAll('[data-goto-tab]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchTab(btn.getAttribute('data-goto-tab'));
+        });
+      });
+
+      // Task list checkbox delegation
+      document.getElementById('task-list-container').addEventListener('change', (e) => {
+        if (e.target.classList.contains('task-checkbox')) {
+          const id = e.target.getAttribute('data-task-id');
+          taskState[id] = e.target.checked;
+          saveState('yoneyama_tasks_v1', taskState);
+          renderTasks();
+        }
+      });
+
+      // Filters
+      ['filter-owner', 'filter-category', 'filter-status'].forEach(id => {
+        document.getElementById(id).addEventListener('change', renderTasks);
+      });
+
+      // Check all / Reset all
+      document.getElementById('btn-check-all').addEventListener('click', () => {
+        initialTasks.forEach(t => { taskState[t.id] = true; });
+        saveState('yoneyama_tasks_v1', taskState);
+        renderTasks();
+        showToast('すべてのタスクを完了にしました');
+      });
+
+      document.getElementById('btn-uncheck-all').addEventListener('click', () => {
+        taskState = {};
+        saveState('yoneyama_tasks_v1', taskState);
+        renderTasks();
+        showToast('チェック状態をリセットしました');
+      });
+
+      // Decision inputs
+      document.querySelectorAll('.decision-input, .decision-radio').forEach(el => {
+        el.addEventListener('change', readDecisionsFromUI);
+        el.addEventListener('input', readDecisionsFromUI);
+      });
+
+      // Transcript search
+      document.getElementById('search-transcript').addEventListener('input', renderTranscript);
+
+      // Export Modal
+      const modal = document.getElementById('export-modal');
+      document.getElementById('btn-open-export').addEventListener('click', () => {
+        document.getElementById('export-textarea').value = generateSummaryText();
+        modal.classList.remove('hidden');
+      });
+
+      const closeModal = () => modal.classList.add('hidden');
+      document.getElementById('btn-close-export').addEventListener('click', closeModal);
+      document.getElementById('btn-close-export-bottom').addEventListener('click', closeModal);
+
+      document.getElementById('btn-copy-export').addEventListener('click', () => {
+        const text = document.getElementById('export-textarea').value;
+        copyTextToClipboard(text);
+      });
+
+      // Print button
+      document.getElementById('btn-print').addEventListener('click', () => {
+        window.print();
+      });
+    });
+  </script>
+</body>
+</html>
